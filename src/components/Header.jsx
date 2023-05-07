@@ -5,15 +5,24 @@ import Avatarimage from "../images/avatar.jpg";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Link from "@mui/material/Link";
+import { useLocation } from "react-router-dom";
 
 export default function Header() {
+  const { pathname } = useLocation();
+  console.log("pathname", pathname);
   return (
     <div className="header-wrap">
       <div className="header-image">
         <img width="50%" src={Logo} alt="logo" />
       </div>
       <div className="header-links">
-        <Link href="/" underline="hover" color="black" variant="h5">
+        <Link
+          className={pathname === "/" ? "active" : ""}
+          href="/"
+          underline="hover"
+          color="black"
+          variant="h5"
+        >
           Home
         </Link>
         <Link
@@ -22,6 +31,7 @@ export default function Header() {
           color="black"
           variant="h5"
           sx={{ ml: "50px" }}
+          className={pathname === "/customer" ? "active" : ""}
         >
           Customers
         </Link>
@@ -31,6 +41,7 @@ export default function Header() {
           color="black"
           variant="h5"
           sx={{ ml: "50px" }}
+          className={pathname === "/contract" ? "active" : ""}
         >
           Contracts
         </Link>

@@ -2,19 +2,31 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import CustomerPage from "../pages/CustomerPage";
 import ContractPage from "../pages/ContractPage";
-
+import Layout from "../components/Layout";
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
   },
   {
     path: "/customer",
-    element: <CustomerPage />,
+    element: (
+      <Layout>
+        <CustomerPage />
+      </Layout>
+    ),
   },
   {
     path: "/contract",
-    element: <ContractPage />,
+    element: (
+      <Layout>
+        <ContractPage />
+      </Layout>
+    ),
   },
 ]);
 

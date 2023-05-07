@@ -22,6 +22,7 @@ import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+import DeleteModal from "../components/DeleteModal";
 
 const CustomerPage = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ const CustomerPage = () => {
   const contract = useSelector(selectorContract);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [contractList, setContractList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [deleteCustomerId, setDeleteCustomerId] = useState(null);
+  const [deleteContractId, setDeleteContractId] = useState(null);
+  const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     fetch("./customer.json")
@@ -43,6 +48,8 @@ const CustomerPage = () => {
   useEffect(() => {
     if (customer.customerData && customer.customerData.length) {
       setSelectedCustomer(customer.customerData[0].id);
+    } else {
+      setContractList([]);
     }
   }, [customer.customerData]);
 
@@ -72,14 +79,61 @@ const CustomerPage = () => {
     setSelectedCustomer(id);
   };
 
-  const handleDeleteContract = (id) => {
-    let tempContractData = contract.contractData.filter(
-      (item) => item.id !== id
-    );
-    dispatch(setContractData(tempContractData));
+  const handleDelete = (id, type = "") => {
+    switch (type) {
+      case "customer":
+        setModalType(type);
+        setDeleteCustomerId(id);
+        setOpen(true);
+        break;
+      case "contract":
+        setModalType(type);
+        setDeleteContractId(id);
+        setOpen(true);
+        break;
+      default:
+        break;
+    }
   };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  const confirmDelete = () => {
+    switch (modalType) {
+      case "customer":
+        let tempCustomerData = customer.customerData.filter(
+          (item) => item.id !== deleteCustomerId
+        );
+        dispatch(setCustomerData(tempCustomerData));
+        closeModal();
+        break;
+      case "contract":
+        let tempContractData = contract.contractData.filter(
+          (item) => item.id !== deleteContractId
+        );
+        dispatch(setContractData(tempContractData));
+        closeModal();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="cust-wrap">
+      <DeleteModal
+        open={open}
+        setOpen={closeModal}
+        confirmDelete={confirmDelete}
+        title={`${
+          modalType === "customer"
+            ? "Do you want to delete Customer?"
+            : "Do you want to delete Contract?"
+        }`}
+      />
+
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
           Home
@@ -127,7 +181,9 @@ const CustomerPage = () => {
                   <Divider orientation="vertical" flexItem />
                   <Tooltip title="Delete Customer" placement="right">
                     <IconButton aria-label="delete">
-                      <DeleteIcon />
+                      <DeleteIcon
+                        onClick={() => handleDelete(row.id, "customer")}
+                      />
                     </IconButton>
                   </Tooltip>
                 </MenuItem>
@@ -175,7 +231,7 @@ const CustomerPage = () => {
                       <Tooltip title="Delete Contract" placement="right-start">
                         <DeleteOutlineIcon
                           color="action"
-                          onClick={() => handleDeleteContract(row.id)}
+                          onClick={() => handleDelete(row.id, "contract")}
                         />
                       </Tooltip>
                     </TableCell>
