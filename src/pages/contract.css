@@ -1,0 +1,12 @@
+.cont-wrap {
+    background-color:#f2f3f5 ;
+    padding: 50px;
+}
+
+.cont-wrap .cont-header{
+    padding-bottom: 30px;
+}
+
+.cont-wrap .cont-content{
+    padding-left: 40px;
+}

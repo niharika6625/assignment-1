@@ -1,0 +1,18 @@
+.cust-wrap {
+    background-color:#f2f3f5 ;
+    padding: 50px;
+}
+
+.cust-wrap .cust-header{
+    padding-top: 20px;
+}
+
+.cust-wrap .cust-content{
+display: flex;
+justify-content: left;
+margin: 50px;
+}
+
+.cust-wrap .cust-content .cust-contracts{
+    padding-left: 20px;
+}
