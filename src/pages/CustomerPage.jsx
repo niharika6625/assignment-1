@@ -129,8 +129,8 @@ const CustomerPage = () => {
         confirmDelete={confirmDelete}
         title={`${
           modalType === "customer"
-            ? "Do you want to delete Customer?"
-            : "Do you want to delete Contract?"
+            ? "The selected customer and all it's contracts will be deleted. Do you confirm?"
+            : "The selected contract will be deleted. Do you confirm?"
         }`}
       />
 
@@ -145,7 +145,7 @@ const CustomerPage = () => {
       </div>
       <div className="cust-content">
         <div className="cust-list">
-          <Paper sx={{ width: 320 }}>
+          <Paper sx={{ maxWidth: 320 }}>
             <Typography
               variant="h6"
               padding={"12px"}
@@ -199,7 +199,7 @@ const CustomerPage = () => {
               aria-label="simple table"
             >
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ fontSize: "2rem" }}>
                   <TableCell align="left">
                     <b>Customer Id</b>
                   </TableCell>
@@ -221,7 +221,9 @@ const CustomerPage = () => {
                 {contractList.map((row, index) => (
                   <TableRow
                     key={index + "_id"}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                    }}
                   >
                     <TableCell align="left">{row.customerId}</TableCell>
                     <TableCell align="left">{row.name}</TableCell>

@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import "./deletemodal.css";
+import Stack from "@mui/material/Stack";
 
 const style = {
   position: "absolute",
@@ -34,12 +36,26 @@ export default function DeleteModal({
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {title}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-          <div>
-            <Button onClick={setOpen}>Cancel</Button>
-            <Button onClick={confirmDelete}>Delete</Button>
+          <div className="modal-button">
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="contained"
+                size="small"
+                onClick={setOpen}
+                sx={{
+                  backgroundColor: "#d4d7d9",
+                  color: "black",
+                  ":hover": {
+                    backgroundColor: "gray",
+                  },
+                }}
+              >
+                Cancel
+              </Button>
+              <Button variant="contained" size="small" onClick={confirmDelete}>
+                Confirm
+              </Button>
+            </Stack>
           </div>
         </Box>
       </Modal>

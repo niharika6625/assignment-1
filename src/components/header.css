@@ -2,11 +2,18 @@
     background-color: white;
     display: flex;
     padding: 20px 30px;
+    box-shadow: 0 10px 6px -6px #777;
   }
 
 .header-wrap .header-links {
     width: 80%;
     padding-top: 15px;
+  }
+
+.header-wrap .header-links .active{
+background-color: #d4d7d9;
+padding: 10px;
+border-radius: 5px;
   }
 
 .header-wrap .header-welcome{
