@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchCustomerList } from "./thunk";
 
 const customerSlice = createSlice({
   name: "customer",
@@ -9,6 +10,14 @@ const customerSlice = createSlice({
     setCustomerData: (state, action) => {
       state.customerData = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCustomerList.fulfilled, (state, action) => {
+      state.customerData = action.payload;
+    });
+    builder.addCase(fetchCustomerList.rejected, (state, action) => {
+      state.customerData = action.payload;
+    });
   },
 });
 

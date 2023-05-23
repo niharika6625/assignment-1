@@ -10,19 +10,15 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import CardHeader from "@mui/material/CardHeader";
 
+import { fetchContractList } from "../store/reducers/contract/thunk";
+
 const ContractPage = () => {
   const dispatch = useDispatch();
   const contract = useSelector(selectorContract);
 
   useEffect(() => {
-    fetch("./contracts.json")
-      .then((res) => {
-        return res.json();
-      })
-      .then((response) => {
-        dispatch(setContractData(response));
-      });
-  }, []);
+    dispatch(fetchContractList());
+  }, [dispatch]);
 
   return (
     <div className="cont-wrap">

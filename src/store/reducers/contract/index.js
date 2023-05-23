@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { fetchContractList } from "./thunk";
 const contractSlice = createSlice({
   name: "contract",
   initialState: {
@@ -9,6 +9,14 @@ const contractSlice = createSlice({
     setContractData: (state, action) => {
       state.contractData = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchContractList.fulfilled, (state, action) => {
+      state.contractData = action.payload;
+    });
+    builder.addCase(fetchContractList.rejected, (state, action) => {
+      state.contractData = action.payload;
+    });
   },
 });
 

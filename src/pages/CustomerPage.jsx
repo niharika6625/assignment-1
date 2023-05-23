@@ -23,6 +23,8 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import DeleteModal from "../components/DeleteModal";
+import { fetchContractList } from "../store/reducers/contract/thunk";
+import { fetchCustomerList } from "../store/reducers/customer/thunk";
 
 const CustomerPage = () => {
   const dispatch = useDispatch();
@@ -35,14 +37,26 @@ const CustomerPage = () => {
   const [deleteContractId, setDeleteContractId] = useState(null);
   const [modalType, setModalType] = useState("");
 
+  // useEffect(() => {
+  //   fetch("./customer.json")
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((response) => {
+  //       dispatch(setCustomerData(response));
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch("./customer.json")
-      .then((res) => {
-        return res.json();
-      })
-      .then((response) => {
-        dispatch(setCustomerData(response));
-      });
+    dispatch(fetchContractList());
+    dispatch(fetchCustomerList());
+    // fetch("./contracts.json")
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((response) => {
+    //     dispatch(setContractData(response));
+    //   });
   }, []);
 
   useEffect(() => {
@@ -64,18 +78,7 @@ const CustomerPage = () => {
     }
   }, [selectedCustomer, contract.contractData]);
 
-  useEffect(() => {
-    fetch("./contracts.json")
-      .then((res) => {
-        return res.json();
-      })
-      .then((response) => {
-        dispatch(setContractData(response));
-      });
-  }, []);
-
   const handleSelectedCustomer = (id) => {
-    console.log("id", id);
     setSelectedCustomer(id);
   };
 
