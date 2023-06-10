@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCustomerData, selectorCustomer } from "../store/reducers/customer";
 import { setContractData, selectorContract } from "../store/reducers/contract";
-import "./customer.css";
+import "./StyledCustomer.js";
+import { StyledCustomer } from "./StyledCustomer";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
@@ -125,130 +126,141 @@ const CustomerPage = () => {
   };
 
   return (
-    <div className="cust-wrap">
-      <DeleteModal
-        open={open}
-        setOpen={closeModal}
-        confirmDelete={confirmDelete}
-        title={`${
-          modalType === "customer"
-            ? "The selected customer and all it's contracts will be deleted. Do you confirm?"
-            : "The selected contract will be deleted. Do you confirm?"
-        }`}
-      />
+    <StyledCustomer>
+      <div className="cust-wrap">
+        <DeleteModal
+          open={open}
+          setOpen={closeModal}
+          confirmDelete={confirmDelete}
+          title={`${
+            modalType === "customer"
+              ? "The selected customer and all it's contracts will be deleted. Do you confirm?"
+              : "The selected contract will be deleted. Do you confirm?"
+          }`}
+        />
 
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href="/">
-          Home
-        </Link>
-        <Typography color="text.primary">Customers</Typography>
-      </Breadcrumbs>
-      <div className="cust-header">
-        <h1>&#91; Customer's Contracts &#93;</h1>
-      </div>
-      <div className="cust-content">
-        <div className="cust-list">
-          <Paper sx={{ maxWidth: 320 }}>
-            <Typography
-              variant="h6"
-              padding={"12px"}
-              sx={{ backgroundColor: "#d4d7d9" }}
-            >
-              Select Customer
-            </Typography>
-            <Divider variant="middle" />
-            <MenuList>
-              {customer.customerData.map((row, index) => (
-                <MenuItem
-                  key={index + "-id"}
-                  onClick={() => handleSelectedCustomer(row.id)}
-                  style={{
-                    backgroundColor:
-                      row.id === selectedCustomer ? "#a6dff5" : "unset",
-                    borderBottomRightRadius: "40px",
-                    borderTopRightRadius: "40px",
-                  }}
-                >
-                  <ListItemText
-                    align="left"
-                    primary={row.name}
-                    secondary={
-                      <React.Fragment>
-                        <Typography sx={{ display: "inline" }} variant="body2">
-                          Customer Id :
-                        </Typography>
-                        {row.id}
-                      </React.Fragment>
-                    }
-                  />
-                  <Divider orientation="vertical" flexItem />
-                  <Tooltip title="Delete Customer" placement="right">
-                    <IconButton aria-label="delete">
-                      <DeleteIcon
-                        onClick={() => handleDelete(row.id, "customer")}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Paper>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="inherit" href="/">
+            Home
+          </Link>
+          <Typography color="text.primary">Customers</Typography>
+        </Breadcrumbs>
+        <div className="cust-header">
+          <h1>&#91; Customer's Contracts &#93;</h1>
         </div>
-        <div className="cust-contracts">
-          <TableContainer component={Paper} sx={{ height: 600, width: "100%" }}>
-            <Table
-              stickyHeader
-              sx={{ minWidth: 1000 }}
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow sx={{ fontSize: "2rem" }}>
-                  <TableCell align="left">
-                    <b>Customer Id</b>
-                  </TableCell>
-                  <TableCell align="left">
-                    <b>Contract Name</b>
-                  </TableCell>
-                  <TableCell align="left">
-                    <b>Status</b>
-                  </TableCell>
-                  <TableCell align="left">
-                    <b>Type</b>
-                  </TableCell>
-                  <TableCell align="center">
-                    <b>Action</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {contractList.map((row, index) => (
-                  <TableRow
-                    key={index + "_id"}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
+        <div className="cust-content">
+          <div className="cust-list">
+            <Paper sx={{ maxWidth: 320 }}>
+              <Typography
+                variant="h6"
+                padding={"12px"}
+                sx={{ backgroundColor: "#d4d7d9" }}
+              >
+                Select Customer
+              </Typography>
+              <Divider variant="middle" />
+              <MenuList>
+                {customer.customerData.map((row, index) => (
+                  <MenuItem
+                    key={index + "-id"}
+                    onClick={() => handleSelectedCustomer(row.id)}
+                    style={{
+                      backgroundColor:
+                        row.id === selectedCustomer ? "#a6dff5" : "unset",
+                      borderBottomRightRadius: "40px",
+                      borderTopRightRadius: "40px",
                     }}
                   >
-                    <TableCell align="left">{row.customerId}</TableCell>
-                    <TableCell align="left">{row.name}</TableCell>
-                    <TableCell align="left">{row.status}</TableCell>
-                    <TableCell align="left">{row.type}</TableCell>
-                    <TableCell align="center">
-                      <Tooltip title="Delete Contract" placement="right-start">
-                        <DeleteOutlineIcon
-                          color="action"
-                          onClick={() => handleDelete(row.id, "contract")}
+                    <ListItemText
+                      align="left"
+                      primary={row.name}
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: "inline" }}
+                            variant="body2"
+                          >
+                            Customer Id :
+                          </Typography>
+                          {row.id}
+                        </React.Fragment>
+                      }
+                    />
+                    <Divider orientation="vertical" flexItem />
+                    <Tooltip title="Delete Customer" placement="right">
+                      <IconButton aria-label="delete">
+                        <DeleteIcon
+                          onClick={() => handleDelete(row.id, "customer")}
                         />
-                      </Tooltip>
+                      </IconButton>
+                    </Tooltip>
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Paper>
+          </div>
+          <div className="cust-contracts">
+            <TableContainer
+              component={Paper}
+              sx={{ height: 600, width: "100%" }}
+            >
+              <Table
+                stickyHeader
+                sx={{ minWidth: 1000 }}
+                aria-label="simple table"
+              >
+                <TableHead>
+                  <TableRow sx={{ fontSize: "2rem" }}>
+                    <TableCell align="left">
+                      <b>Customer Id</b>
+                    </TableCell>
+                    <TableCell align="left">
+                      <b>Contract Name</b>
+                    </TableCell>
+                    <TableCell align="left">
+                      <b>Status</b>
+                    </TableCell>
+                    <TableCell align="left">
+                      <b>Type</b>
+                    </TableCell>
+                    <TableCell align="center">
+                      <b>Action</b>
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {contractList.map((row, index) => (
+                    <TableRow
+                      key={index + "_id"}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell align="left">{row.customerId}</TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row.status}</TableCell>
+                      <TableCell align="left">{row.type}</TableCell>
+                      <TableCell align="center">
+                        <Tooltip
+                          title="Delete Contract"
+                          placement="right-start"
+                        >
+                          <DeleteOutlineIcon
+                            color="action"
+                            onClick={() => handleDelete(row.id, "contract")}
+                          />
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
         </div>
+        <div className="cust-new"></div>
       </div>
-      <div className="cust-new"></div>
-    </div>
+    </StyledCustomer>
   );
 };
 

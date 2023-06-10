@@ -1,3 +1,7 @@
+import { styled } from "@mui/material/styles";
+
+const StyledHome = styled("div")(
+  ({ theme }) => `
 .content-wrap{
     background-color:#f2f3f5 ;
     display: flex;
@@ -17,5 +21,7 @@ display: flex;
 justify-content: center;
 }
 
+`
+);
 
-
+export { StyledHome };

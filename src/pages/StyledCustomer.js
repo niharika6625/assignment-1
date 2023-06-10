@@ -1,3 +1,7 @@
+import { styled } from "@mui/material/styles";
+
+const StyledCustomer = styled("div")(
+  ({ theme }) => `
 .cust-wrap {
     background-color:#f2f3f5 ;
     padding: 50px;
@@ -40,3 +44,8 @@ margin: 50px;
         width: 100%;
     }
 }
+
+    `
+);
+
+export { StyledCustomer };
